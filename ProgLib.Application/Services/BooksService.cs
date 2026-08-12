@@ -4,7 +4,7 @@ using ProgLib.Core.Models;
 
 namespace ProgLib.Application.Services
 {
-    public class BooksService
+    public class BooksService : IBooksService
     {
         private readonly IBooksRepository _booksRepository;
         public BooksService(IBooksRepository booksRepository)
