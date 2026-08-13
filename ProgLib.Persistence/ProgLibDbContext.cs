@@ -11,5 +11,7 @@ namespace ProgLib.Persistence
         }
 
         public DbSet<BookEntity> Books { get; set; }
+
+        public DbSet<UserEntity> Users { get; set; }
     }
 }

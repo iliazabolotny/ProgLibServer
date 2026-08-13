@@ -2,5 +2,6 @@
   <Project Path="ProgLib.API/ProgLib.API.csproj" />
   <Project Path="ProgLib.Application/ProgLib.Application.csproj" Id="2a9a9fdb-34b1-433a-8595-bf1b798a03b0" />
   <Project Path="ProgLib.Core/ProgLib.Core.csproj" />
+  <Project Path="ProgLib.Infrastructure/ProgLib.Infrastructure.csproj" Id="6864cf03-66f7-4800-b960-31778c4d45fb" />
   <Project Path="ProgLib.Persistence/ProgLib.Persistence.csproj" />
 </Solution>
