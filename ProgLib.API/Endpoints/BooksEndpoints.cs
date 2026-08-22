@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProgLib.API.Contracts;
-using ProgLib.Application.Services;
 using ProgLib.Core.Abstractions;
 using ProgLib.Core.Models;
 
@@ -11,7 +10,7 @@ public static class BooksEndpoints
 
     public static IEndpointRouteBuilder MapBooksEndpoints(this IEndpointRouteBuilder app)
     {
-        var endpoints = app.MapGroup("proglibbooks").RequireAuthorization();
+        var endpoints = app.MapGroup("proglib").RequireAuthorization();
 
         endpoints.MapGet(string.Empty, GetBooks);
 
