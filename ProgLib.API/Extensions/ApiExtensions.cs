@@ -16,28 +16,35 @@ namespace ProgLib.API.Extensions
 
         }
 
-        public static void AddApiAuthenticationI(this IServiceCollection services, IOptions<JwtOptions> jwtOptions)
+        public static void AddApiAuthenticationI(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-            {
-                options.TokenValidationParameters = new()
-                {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.Value.SecretKey))
-                };
+            var jwtOptions = configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>() ?? throw new Exception("No JwtOptions");
 
-                options.Events = new JwtBearerEvents
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
                 {
-                    OnMessageReceived = context =>
+                    options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        context.Token = context.Request.Cookies["proglibcookies"];
-                        return Task.CompletedTask;
-                    }
-                };
-            });
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(jwtOptions.SecretKey))
+                    };
+
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            context.Token =
+                                context.Request.Cookies["proglibcookies"];
+
+                            return Task.CompletedTask;
+                        }
+                    };
+                });
 
             services.AddAuthorization();
         }

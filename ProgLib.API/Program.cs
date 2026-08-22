@@ -11,8 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+
+
+builder.Services.AddApiAuthenticationI(builder.Configuration);
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ProgLibDbContext>(options =>

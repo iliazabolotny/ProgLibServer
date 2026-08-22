@@ -22,7 +22,7 @@ namespace ProgLib.Infrastructure
 
             var loginCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
-                SecurityAlgorithms.RsaPKCS1
+                SecurityAlgorithms.HmacSha256
                 );
 
             var token = new JwtSecurityToken(
