@@ -22,6 +22,8 @@ builder.Services.AddDbContext<ProgLibDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(ProgLibDbContext)));
 });
 
+builder.Services.AddCors();
+
 builder.Services.AddScoped<IBooksService, BooksService>();
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
@@ -44,6 +46,14 @@ app.UseCookiePolicy(new CookiePolicyOptions
     MinimumSameSitePolicy = SameSiteMode.Strict,
     HttpOnly = HttpOnlyPolicy.Always,
     Secure = CookieSecurePolicy.Always
+});
+
+app.UseCors(x =>
+{
+    x.WithHeaders().AllowAnyHeader();
+    x.WithOrigins("http://localhost:3000");
+    x.WithMethods().AllowAnyMethod();
+    x.AllowCredentials();
 });
 
 app.UseAuthentication();
