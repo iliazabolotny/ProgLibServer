@@ -51,7 +51,7 @@ app.UseCookiePolicy(new CookiePolicyOptions
 app.UseCors(x =>
 {
     x.WithHeaders().AllowAnyHeader();
-    x.WithOrigins("http://localhost:3000");
+    x.WithOrigins("");
     x.WithMethods().AllowAnyMethod();
     x.AllowCredentials();
 });
