@@ -17,7 +17,7 @@ public static class UsersEndpoints
     private static async Task<IResult> Register(RegisterUserRequest request, IUsersService usersService)
     {
         await usersService.Register(request.UserName, request.Email, request.Password);
-        return Results.Ok();
+        return Results.Created();
     }
 
     private static async Task<IResult> Login(LoginUserRequest request, IUsersService usersService, HttpContext context)

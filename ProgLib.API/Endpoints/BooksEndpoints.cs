@@ -47,7 +47,7 @@ public static class BooksEndpoints
 
         var bookId = await booksService.CreateBook(book);
 
-        return Results.Ok(book);
+        return Results.Created($"/proglib/{bookId}", book);
     }
 
 
